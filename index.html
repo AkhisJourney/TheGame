@@ -4,345 +4,114 @@
 
 
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
 	
-
-
     <title>Akhi's Jorney</title>
-		<link rel="stylesheet" type="text/css" href='css/style.css' src='css/style;.css' />
-			<meta name="viewport" content="width = device-width, initial-scale = 1 ,maximum-scale = 1, target-densityDpi=device-dpi, user-scalable=no" />
-             <meta name="HandheldFriendly" content="true"/>  
-             <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-             
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-			<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"  />   
-            <!-- Detect resolution and ajust styles-->
+	<link rel="stylesheet" type="text/css" href='css/style.css' src='css/style;.css' />
+    <meta name="viewport" content="width = device-width, initial-scale = 1 ,maximum-scale = 1, target-densityDpi=device-dpi, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true"/>  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+     
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"  />   
+    
+    <!-- Detect resolution and ajust styles-->         
+    
+    <script language="javascript" type="text/javascript" src="js/resolution.js"></script>
+
+    <script language="javascript" type="text/javascript" src="js/mouse.js"></script>
+	<script language="javascript" type="text/javascript" src="js/bullets.js"></script>
+
+           
+    <script  language="javascript">
+    var winWidth=300; // in percent
+    var winMaxHeight=424; // in percent
+    var language='cz';
+
+    var bullet = new Array(	new Bullet('root',0,'root', false));
+    var link = new Array(new Link(bullet[0],bullet[0]));
+    var wind= new Array();
+
+    var bullet_cz = new Array();
+    var link_cz = new Array();
+    var wind_cz= new Array();
+
+    var bullet_en = new Array();
+    var link_en = new Array();
+    var wind_en= new Array();
+
+    function init_bullets()
+    {
+        bullets=bullet.length;
+        links=link.length;
+    }
             
-            
-            
-            
+    function makeKids(father)
+    {
+        var howMany = 7*Math.random()+1;
+        for (var i = 0 ; i< howMany; i++)
+        {
+            var kidBullet = new Bullet(father.name+'@i', father.name+'@i', 1.5 , father.name+'@i', true, true);
+            bullet.push(kidBullet);     
 
+            bullets=bullet.length;
 
-<script language="javascript">
-//var litevers=false;
+            link.push(new Link(father,kidBullet)); 
 
-var iphone = false;
-var mobilebrouser = false; 
-var android = false;
-var operamobile = false;
-var android3 = false;
-var apple = false;
-var ie = false;
-//var mobilebrouser = ;
-var us_agent_str = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36';
-var anFPS=android3?12:24;
-var scr_width;
-var scr_height;
-	
-var fade;
-var fadeto;
-var currentfader;
-var fps=1000/24;
+            kidBullet.father=father;
+            kidBullet.z=father.z_lvl;
+            kidBullet.z_lvl=father.z_lvl+80;
 
-var c;
-var timer;
-
-
-var topoffset=0; // For mobile browsers height of the adress line (to hide); 60 for iphone/ipad + operaMobile
-
-//alert ('detected res: '+screen.width+'X'+screen.height+' X('+screen.availHeight+')');
-
-var ctx;
-var stream1;
-var stream2;
-
-var message;
-
-
-var varwindow;
-
-
-var rnd=new Array();
-
-var rndpos=0;
-var rndcont=100001;
-
-var camera_z=0;
-var camera_z_to=0;
-var offset_z=200;
-var z;
-var z_to;
-var perspective=100;
-
-//function initRand() {
-	for (var i=0; i<rndcont;i++) rnd.push(Math.random());
-//    }
-
-
-
- function shiftRand() {
-        var res= rnd[rndpos];
-			rndpos++; 
-				if (rndpos==rndcont) rndpos=0;
-			return res;
+            //getOrder('structure.en/3_SERVICES.1').z_lvl=getOrder('structure.en.3').z_lvl+80;
+            //init_bullets();	
+            links=link.length;
+        //	debugger;
+        }
     }
 
-</script>
+    bullet=null;
+    link=null;
 
+    bullet = new Array(new Bullet('root',0,'root', false));
+    link = new Array(new Link(bullet[0],bullet[0]));
 
-<!--<script language="javascript" type="text/javascript" src="jquery/jquery171.js"></script>-->
+    var root = new Bullet('RootCost', '.', 3 , '.', true, true)
+    var targetColorR = root.colorR;
+    var targetColorG = root.colorG;
+    var targetColorB = root.colorB;
 
-<script language="javascript" type="text/javascript" src="js/mouse.js"></script>
+    bullet.push(root);
+    
+    bullets=bullet.length;
+    
+    links=link.length;
+                    
+                    
+    function stop_scroll(evt) {
+        evt.cancelBubble = true; //Stopscroll
+        evt.returnValue = false; 
+    
+        //Stopscroll Mozilla
+        if(evt.preventDefault) evt.preventDefault();
+        if(evt.stopPropagation) evt.stopPropagation();
+        return false;
+    } 
 
-		 <script language="javascript" type="text/javascript" src="js/bullets.js"></script>
-
-
-         
-<script  language="javascript">
-var winWidth=300; // in percent
-var winMaxHeight=424; // in percent
-var language='cz';
-
-var bullet = new Array(	new Bullet('root',0,'root', false));
-var link = new Array(new Link(bullet[0],bullet[0]));
-var wind= new Array();
-
-
-
-var bullet_cz = new Array();
-var link_cz = new Array();
-var wind_cz= new Array();
-
-var bullet_en = new Array();
-var link_en = new Array();
-var wind_en= new Array();
-
-
-
-
-function init_bullets()
-{
-
-
-
- 	bullets=bullet.length;
-	    	links=link.length;
-}
-
-		
-
-function makeKids(father)
-{
-
-	var howMany = 7*Math.random()+1;
-
-	for (var i = 0 ; i< howMany; i++)
-	{
-		var kidBullet = new Bullet(father.name+'@i', father.name+'@i', 1.5 , father.name+'@i', true, true);
-		bullet.push(kidBullet);
-
-	
-
-		bullets=bullet.length;
-
-		link.push(new Link(father,kidBullet)); 
-
-		kidBullet.father=father;
-		kidBullet.z=father.z_lvl;
-		kidBullet.z_lvl=father.z_lvl+80;
-
-
-
-		//getOrder('structure.en/3_SERVICES.1').z_lvl=getOrder('structure.en.3').z_lvl+80;
-		//init_bullets();	
-		links=link.length;
-	//	debugger;
-	}
-
-}
-
-bullet=null;
-link=null;
-
-
-bullet = new Array(new Bullet('root',0,'root', false));
-link = new Array(new Link(bullet[0],bullet[0]));
-
-
-var root = new Bullet('RootCost', '.', 3 , '.', true, true)
-
-var targetColorR = root.colorR;
-var targetColorG = root.colorG;
-var targetColorB = root.colorB;
-
-bullet.push(root);
-bullets=bullet.length;
-// link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en/3_SERVICES.1'))); getOrder('structure.en/3_SERVICES.1').father=getOrder('structure.en.3');getOrder('structure.en/3_SERVICES.1').z=getOrder('structure.en.3').z_lvl;getOrder('structure.en/3_SERVICES.1').z_lvl=getOrder('structure.en.3').z_lvl+80;
-
-//en
-/*
- wind.push(new Wind(bullet[0], 'News', 'structure.en/news'));// structure.en
-bullet.push(new Bullet('THE COMPANY', 'structure.en.1', 1.5 , '1_THE COMPANY', true, false));
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en.1'), 'THE COMPANY', 'structure.en/1_THE COMPANY')); 
-bullet.push(new Bullet('CONTACT', 'structure.en.4', 1.5 , '4_CONTACT', true, false));
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en.4'), 'CONTACT', 'structure.en/4_CONTACT')); 
-bullet.push(new Bullet('CLIENT AREA', 'structure.en.5', 1.5 , '5_CLIENT AREA', true, false));
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en.5'), 'CLIENT AREA', 'structure.en/5_CLIENT AREA')); 
-bullet.push(new Bullet('CZ', 'structure.en.6', 1.5 , '6_CZ', true, false));
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en.6'), 'CZ', 'structure.en/6_CZ')); 
-bullet.push(new Bullet('SERVICES', 'structure.en.3', 1.8 , '3_SERVICES', true, true));
-bullet.push(new Bullet('OUR WORK', 'structure.en.2', 1.8 , '2_OUR WORK', true, true));
-bullets=bullet.length;link.push(new Link(getOrder('structure.en.1'),getOrder('structure.en.2')));
-link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en.3')));
-link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en.1')));
-link.push(new Link(getOrder('structure.en.4'),getOrder('structure.en.5')));
-// close structure.en
-// structure.en/3_SERVICES
-bullet.push(new Bullet('FINISHING', 'structure.en/3_SERVICES.1', 1.5 , '1_FINISHING', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en/3_SERVICES.1'))); getOrder('structure.en/3_SERVICES.1').father=getOrder('structure.en.3');getOrder('structure.en/3_SERVICES.1').z=getOrder('structure.en.3').z_lvl;getOrder('structure.en/3_SERVICES.1').z_lvl=getOrder('structure.en.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/3_SERVICES.1'), 'FINISHING', 'structure.en/3_SERVICES/1_FINISHING')); 
-bullet.push(new Bullet('EDITING', 'structure.en/3_SERVICES.2', 1.5 , '2_EDITING', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en/3_SERVICES.2'))); getOrder('structure.en/3_SERVICES.2').father=getOrder('structure.en.3');getOrder('structure.en/3_SERVICES.2').z=getOrder('structure.en.3').z_lvl;getOrder('structure.en/3_SERVICES.2').z_lvl=getOrder('structure.en.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/3_SERVICES.2'), 'EDITING', 'structure.en/3_SERVICES/2_EDITING')); 
-bullet.push(new Bullet('COMPUTER GRAPHICS', 'structure.en/3_SERVICES.3', 1.5 , '3_COMPUTER GRAPHICS', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en/3_SERVICES.3'))); getOrder('structure.en/3_SERVICES.3').father=getOrder('structure.en.3');getOrder('structure.en/3_SERVICES.3').z=getOrder('structure.en.3').z_lvl;getOrder('structure.en/3_SERVICES.3').z_lvl=getOrder('structure.en.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/3_SERVICES.3'), 'COMPUTER GRAPHICS', 'structure.en/3_SERVICES/3_COMPUTER GRAPHICS')); 
-bullet.push(new Bullet('DUBS', 'structure.en/3_SERVICES.4', 1.5 , '4_DUBS', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en/3_SERVICES.4'))); getOrder('structure.en/3_SERVICES.4').father=getOrder('structure.en.3');getOrder('structure.en/3_SERVICES.4').z=getOrder('structure.en.3').z_lvl;getOrder('structure.en/3_SERVICES.4').z_lvl=getOrder('structure.en.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/3_SERVICES.4'), 'DUBS', 'structure.en/3_SERVICES/4_DUBS')); 
-bullet.push(new Bullet('WEB', 'structure.en/3_SERVICES.5', 1.5 , '5_WEB', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.3'),getOrder('structure.en/3_SERVICES.5'))); getOrder('structure.en/3_SERVICES.5').father=getOrder('structure.en.3');getOrder('structure.en/3_SERVICES.5').z=getOrder('structure.en.3').z_lvl;getOrder('structure.en/3_SERVICES.5').z_lvl=getOrder('structure.en.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/3_SERVICES.5'), 'WEB', 'structure.en/3_SERVICES/5_WEB')); 
-// close structure.en/3_SERVICES
-// structure.en/2_OUR WORK
-bullet.push(new Bullet('WEB', 'structure.en/2_OUR WORK.7', 1.8 , '7_WEB', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.7'))); getOrder('structure.en/2_OUR WORK.7').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.7').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.7').z_lvl=getOrder('structure.en.2').z_lvl+80;
-bullet.push(new Bullet('DESIGN', 'structure.en/2_OUR WORK.6', 1.8 , '6_DESIGN', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.6'))); getOrder('structure.en/2_OUR WORK.6').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.6').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.6').z_lvl=getOrder('structure.en.2').z_lvl+80;
-bullet.push(new Bullet('ANIMATION', 'structure.en/2_OUR WORK.5', 1.8 , '5_ANIMATION', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.5'))); getOrder('structure.en/2_OUR WORK.5').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.5').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.5').z_lvl=getOrder('structure.en.2').z_lvl+80;
-bullet.push(new Bullet('COMMERCIALS', 'structure.en/2_OUR WORK.4', 1.8 , '4_COMMERCIALS', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.4'))); getOrder('structure.en/2_OUR WORK.4').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.4').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.4').z_lvl=getOrder('structure.en.2').z_lvl+80;
-bullet.push(new Bullet('FILM', 'structure.en/2_OUR WORK.3', 1.8 , '3_FILM', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.3'))); getOrder('structure.en/2_OUR WORK.3').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.3').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.3').z_lvl=getOrder('structure.en.2').z_lvl+80;
-bullet.push(new Bullet('VIDEOS', 'structure.en/2_OUR WORK.2', 1.8 , '2_VIDEOS', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.2'))); getOrder('structure.en/2_OUR WORK.2').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.2').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.2').z_lvl=getOrder('structure.en.2').z_lvl+80;
-bullet.push(new Bullet('REELS', 'structure.en/2_OUR WORK.1', 1.8 , '1_REELS', false, true));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en.2'),getOrder('structure.en/2_OUR WORK.1'))); getOrder('structure.en/2_OUR WORK.1').father=getOrder('structure.en.2');getOrder('structure.en/2_OUR WORK.1').z=getOrder('structure.en.2').z_lvl;getOrder('structure.en/2_OUR WORK.1').z_lvl=getOrder('structure.en.2').z_lvl+80;
-// close structure.en/2_OUR WORK
-// structure.en/2_OUR WORK/7_WEB
-// close structure.en/2_OUR WORK/7_WEB
-// structure.en/2_OUR WORK/6_DESIGN
-bullet.push(new Bullet('R1', 'structure.en/2_OUR WORK/6_DESIGN.2', 1.5 , '2_R1', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.6'),getOrder('structure.en/2_OUR WORK/6_DESIGN.2'))); getOrder('structure.en/2_OUR WORK/6_DESIGN.2').father=getOrder('structure.en/2_OUR WORK.6');getOrder('structure.en/2_OUR WORK/6_DESIGN.2').z=getOrder('structure.en/2_OUR WORK.6').z_lvl;getOrder('structure.en/2_OUR WORK/6_DESIGN.2').z_lvl=getOrder('structure.en/2_OUR WORK.6').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/6_DESIGN.2'), 'R1', 'structure.en/2_OUR WORK/6_DESIGN/2_R1')); 
-// close structure.en/2_OUR WORK/6_DESIGN
-// structure.en/2_OUR WORK/5_ANIMATION
-// close structure.en/2_OUR WORK/5_ANIMATION
-// structure.en/2_OUR WORK/4_COMMERCIALS
-bullet.push(new Bullet('Aukro', 'structure.en/2_OUR WORK/4_COMMERCIALS.1', 1.5 , '1_Aukro', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.4'),getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.1'))); getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.1').father=getOrder('structure.en/2_OUR WORK.4');getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.1').z=getOrder('structure.en/2_OUR WORK.4').z_lvl;getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.1').z_lvl=getOrder('structure.en/2_OUR WORK.4').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.1'), 'Aukro', 'structure.en/2_OUR WORK/4_COMMERCIALS/1_Aukro')); 
-bullet.push(new Bullet('UniCredit Bank', 'structure.en/2_OUR WORK/4_COMMERCIALS.2', 1.5 , '2_UniCredit Bank', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.4'),getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.2'))); getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.2').father=getOrder('structure.en/2_OUR WORK.4');getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.2').z=getOrder('structure.en/2_OUR WORK.4').z_lvl;getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.2').z_lvl=getOrder('structure.en/2_OUR WORK.4').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/4_COMMERCIALS.2'), 'UniCredit Bank', 'structure.en/2_OUR WORK/4_COMMERCIALS/2_UniCredit Bank')); 
-// close structure.en/2_OUR WORK/4_COMMERCIALS
-// structure.en/2_OUR WORK/3_FILM
-bullet.push(new Bullet('Tobruk', 'structure.en/2_OUR WORK/3_FILM.2', 1.5 , '2_Tobruk', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.3'),getOrder('structure.en/2_OUR WORK/3_FILM.2'))); getOrder('structure.en/2_OUR WORK/3_FILM.2').father=getOrder('structure.en/2_OUR WORK.3');getOrder('structure.en/2_OUR WORK/3_FILM.2').z=getOrder('structure.en/2_OUR WORK.3').z_lvl;getOrder('structure.en/2_OUR WORK/3_FILM.2').z_lvl=getOrder('structure.en/2_OUR WORK.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/3_FILM.2'), 'Tobruk', 'structure.en/2_OUR WORK/3_FILM/2_Tobruk')); 
-bullet.push(new Bullet('Bathory', 'structure.en/2_OUR WORK/3_FILM.3', 1.5 , '3_Bathory', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.3'),getOrder('structure.en/2_OUR WORK/3_FILM.3'))); getOrder('structure.en/2_OUR WORK/3_FILM.3').father=getOrder('structure.en/2_OUR WORK.3');getOrder('structure.en/2_OUR WORK/3_FILM.3').z=getOrder('structure.en/2_OUR WORK.3').z_lvl;getOrder('structure.en/2_OUR WORK/3_FILM.3').z_lvl=getOrder('structure.en/2_OUR WORK.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/3_FILM.3'), 'Bathory', 'structure.en/2_OUR WORK/3_FILM/3_Bathory')); 
-bullet.push(new Bullet('Maj', 'structure.en/2_OUR WORK/3_FILM.4', 1.5 , '4_Maj', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.3'),getOrder('structure.en/2_OUR WORK/3_FILM.4'))); getOrder('structure.en/2_OUR WORK/3_FILM.4').father=getOrder('structure.en/2_OUR WORK.3');getOrder('structure.en/2_OUR WORK/3_FILM.4').z=getOrder('structure.en/2_OUR WORK.3').z_lvl;getOrder('structure.en/2_OUR WORK/3_FILM.4').z_lvl=getOrder('structure.en/2_OUR WORK.3').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/3_FILM.4'), 'Maj', 'structure.en/2_OUR WORK/3_FILM/4_Maj')); 
-// close structure.en/2_OUR WORK/3_FILM
-// structure.en/2_OUR WORK/2_VIDEOS
-// close structure.en/2_OUR WORK/2_VIDEOS
-// structure.en/2_OUR WORK/1_REELS
-bullet.push(new Bullet('V perine', 'structure.en/2_OUR WORK/1_REELS.1', 1.5 , '1_V perine', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.1'),getOrder('structure.en/2_OUR WORK/1_REELS.1'))); getOrder('structure.en/2_OUR WORK/1_REELS.1').father=getOrder('structure.en/2_OUR WORK.1');getOrder('structure.en/2_OUR WORK/1_REELS.1').z=getOrder('structure.en/2_OUR WORK.1').z_lvl;getOrder('structure.en/2_OUR WORK/1_REELS.1').z_lvl=getOrder('structure.en/2_OUR WORK.1').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/1_REELS.1'), 'V perine', 'structure.en/2_OUR WORK/1_REELS/1_V perine')); 
-bullet.push(new Bullet('Kajinek', 'structure.en/2_OUR WORK/1_REELS.2', 1.5 , '2_Kajinek', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.1'),getOrder('structure.en/2_OUR WORK/1_REELS.2'))); getOrder('structure.en/2_OUR WORK/1_REELS.2').father=getOrder('structure.en/2_OUR WORK.1');getOrder('structure.en/2_OUR WORK/1_REELS.2').z=getOrder('structure.en/2_OUR WORK.1').z_lvl;getOrder('structure.en/2_OUR WORK/1_REELS.2').z_lvl=getOrder('structure.en/2_OUR WORK.1').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/1_REELS.2'), 'Kajinek', 'structure.en/2_OUR WORK/1_REELS/2_Kajinek')); 
-bullet.push(new Bullet('VFX', 'structure.en/2_OUR WORK/1_REELS.3', 1.5 , '3_VFX', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.1'),getOrder('structure.en/2_OUR WORK/1_REELS.3'))); getOrder('structure.en/2_OUR WORK/1_REELS.3').father=getOrder('structure.en/2_OUR WORK.1');getOrder('structure.en/2_OUR WORK/1_REELS.3').z=getOrder('structure.en/2_OUR WORK.1').z_lvl;getOrder('structure.en/2_OUR WORK/1_REELS.3').z_lvl=getOrder('structure.en/2_OUR WORK.1').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/1_REELS.3'), 'VFX', 'structure.en/2_OUR WORK/1_REELS/3_VFX')); 
-bullet.push(new Bullet('Commercial', 'structure.en/2_OUR WORK/1_REELS.4', 1.5 , '4_Commercial', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.1'),getOrder('structure.en/2_OUR WORK/1_REELS.4'))); getOrder('structure.en/2_OUR WORK/1_REELS.4').father=getOrder('structure.en/2_OUR WORK.1');getOrder('structure.en/2_OUR WORK/1_REELS.4').z=getOrder('structure.en/2_OUR WORK.1').z_lvl;getOrder('structure.en/2_OUR WORK/1_REELS.4').z_lvl=getOrder('structure.en/2_OUR WORK.1').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/1_REELS.4'), 'Commercial', 'structure.en/2_OUR WORK/1_REELS/4_Commercial')); 
-bullet.push(new Bullet('Design And Animation', 'structure.en/2_OUR WORK/1_REELS.5', 1.5 , '5_Design And Animation', false, false));
-bullets=bullet.length; link.push(new Link(getOrder('structure.en/2_OUR WORK.1'),getOrder('structure.en/2_OUR WORK/1_REELS.5'))); getOrder('structure.en/2_OUR WORK/1_REELS.5').father=getOrder('structure.en/2_OUR WORK.1');getOrder('structure.en/2_OUR WORK/1_REELS.5').z=getOrder('structure.en/2_OUR WORK.1').z_lvl;getOrder('structure.en/2_OUR WORK/1_REELS.5').z_lvl=getOrder('structure.en/2_OUR WORK.1').z_lvl+80;
-bullets=bullet.length; wind.push(new Wind(getOrder('structure.en/2_OUR WORK/1_REELS.5'), 'Design And Animation', 'structure.en/2_OUR WORK/1_REELS/5_Design And Animation')); 
-// close structure.en/2_OUR WORK/1_REELS
-
-bullet_en = [].concat(bullet);
-link_en = [].concat(link);
-wind_en= [].concat(wind);
-*/
-
-
-
-
- 	bullets=bullet.length;
-	    	links=link.length;
-
-
-		
-	
-		
-		
-				
-				
-function stop_scroll(evt) {
-evt.cancelBubble = true; //Stopscroll
-evt.returnValue = false; 
-
-//Stopscroll Mozilla
-if(evt.preventDefault) evt.preventDefault();
-if(evt.stopPropagation) evt.stopPropagation();
-return false;
-} 
-				
-
-
-
-</script>
-		<script language="javascript" type="text/javascript" src="js/interface.js"></script>
-
+    </script>
+    <script language="javascript" type="text/javascript" src="js/interface.js"></script>
 </head>
-
 
 <body  onLoad='init();' onresize="resize()"> <!--onscroll="stop_scroll(event)"-->
 
+    <div class='screen' ><canvas id='bg_canvas'></canvas></div> 
+    <div id='tv_bg'></div> 
+    <div class='screen'><canvas id='ray'></canvas></div>
+    <div class='screen'><canvas id='logo'></canvas> </div>
+    <div class='screen'><canvas id='blur_canvas'></canvas> </div>
+    <div id='screen' class='screen' onMouseOver='fadeto=.5' onMouseOut='fadeto=0'><canvas id='canvas'></canvas></div>
 
-<div class='screen' >	<canvas id='bg_canvas'></canvas> </div> 
-
-<div id='tv_bg'></div> 
-
-<div class='screen'><canvas id='ray'></canvas></div>
-
-<div class='screen' >	<canvas id='logo'></canvas> </div>
-<div class='screen' >	<canvas id='blur_canvas'></canvas> </div>
-
-<div id='screen' class='screen' onMouseOver='fadeto=.5' onMouseOut='fadeto=0'>
-        	               	<canvas id='canvas'></canvas>
-                            
-                            
-
-</div>
-
-
-
-
-<img id='ray_img_150'  src='img/flash/flash4_00000.jpg'> //spot image first frame;
-
-</div>
-
+    <img id='ray_img_150'  src='img/flash/flash4_00000.jpg'> //spot image first frame;
 
 </body>
-
 
 </html>
