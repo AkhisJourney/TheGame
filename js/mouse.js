@@ -1,87 +1,72 @@
-function mouse_events(){
-	      // Mouse events
-
-
- c.addEventListener('mouseenter', function(evt)
+function mouse_events() {
+	// Mouse events
+    c.addEventListener('mouseenter', function(evt)
  	{
-//		alert ('mousemoved');
-                  
+//		alert ('mousemoved');              
     }, false);
 
- c.addEventListener('mousemove', function(evt)
+    
+    c.addEventListener('mousemove', function(evt)
  	{
 		//alert ('mousemoved');
-		
         mousePos = getMousePos(c, evt);
-	target_spot_x=mousePos.x; target_spot_y=mousePos.y;
+        target_spot_x=mousePos.x; target_spot_y=mousePos.y;
 		interactive();
-		
-		
-            mouseMoved();
-
-        			
-
-
-
-
-
+        mouseMoved();
     }, false);
 
-
-
-
-c.addEventListener('mousedown', function(evt)
- 		{
+    c.addEventListener('mousedown', function(evt)
+ 	{
         mousePos = getMousePos(c, evt);
+        target_spot_x=mousePos.x; target_spot_y=mousePos.y;
+	    mousepressedOnce();
+        tick=0;
+    }, false);
 		
-	target_spot_x=mousePos.x; target_spot_y=mousePos.y;
-	        mousepressedOnce();
-            tick=0;
-    	}, false);
 		
-		
-
-
- c.addEventListener('mouseup', function(evt)
- 	{   mousepressed();
-
-if (grabbed!=-1){
-		if (!bullet[grabbed].opened)
-		{
-			bullet[grabbed].tictac=1000/fps;
-		//bullet[grabbed].fadeto=0;
-		} else bullet[grabbed].fadeto=1;
-        	fadeto=0;
-                grabbed=-1;
-                }
-                         //alert ('up!');
-                        winGrabbed=-1; winScrolled=-1; //WINDOW
+    c.addEventListener('mouseup', function(evt)
+ 	{   
+        mousepressed();
+        if (grabbed!=-1)
+        {
+            if (!bullet[grabbed].opened)
+            {
+                bullet[grabbed].tictac=1000/fps;
+            } 
+            else 
+            {
+                bullet[grabbed].fadeto=1;
+            }              
+            fadeto=0;
+            grabbed=-1;
+        }
+        //alert ('up!');
+        winGrabbed=-1; winScrolled=-1; //WINDOW
 
     }, false);
 
 
      c.addEventListener('mouseout', function(evt)
  	{
-if (grabbed!=-1){
-		if (!bullet[grabbed].opened)
-		{
-			bullet[grabbed].tictac=1000/fps;
-		//bullet[grabbed].fadeto=0;
-		} else bullet[grabbed].fadeto=.89;
-        	fadeto=0;
-                grabbed=-1;
-                }
-                                                // alert ('out!');
-                    //winScrolled=-1;                                
-					//winGrabbed=-1; //WINDOW
-
+        if (grabbed!=-1){
+            if (!bullet[grabbed].opened)
+            {
+                bullet[grabbed].tictac=1000/fps;
+                //bullet[grabbed].fadeto=0;
+            } 
+            else 
+            {
+                bullet[grabbed].fadeto=.89;
+            }
+            
+            fadeto=0;
+            grabbed=-1;
+        }
+        //winScrolled=-1;                                
+        //winGrabbed=-1; //WINDOW
     }, false);
 
 }
-
-
-
-
 
 function getMousePos(canvas, evt){ // fullscreen ver
     // get canvas position
@@ -97,7 +82,7 @@ function getMousePos(canvas, evt){ // fullscreen ver
 
 function getTouchPos(canvas, evt){ // fullscreen ver
     // get canvas position
-   event.preventDefault();
+    event.preventDefault();
     var touch = event.touches[0]
 	
     var mouseX = touch.pageX; 
