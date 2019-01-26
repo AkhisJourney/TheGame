@@ -1,0 +1,303 @@
+body, html
+ 	{
+	padding:0;
+	margin:0;
+	overflow:hidden;
+	   width: 100%;
+   height: 100%;
+   background-color:#fff;
+	}
+
+#screen {
+
+       margin: 0 auto;
+    width: 100%;
+    height: 100%;
+		overflow:hidden;
+		position:absolute; top:0px; left:0px;
+}
+
+
+
+#canvasbg {
+    position: absolute;
+    margin: 0 auto;
+
+    display: block;
+    background-color: #888;
+
+}
+
+#canvas {
+	width: 100%;
+    height: 100%;
+
+    display: block;
+	overflow:hidden;
+	
+    background-color: transparent;
+position:absolute; top:0px; left:0px;
+}
+
+#logo {
+	width: 100%;
+    height: 100%;
+
+    display: block;
+	overflow:hidden;
+	
+    background-color: transparent;
+position:absolute; top:0px; left:0px;
+opacity: 0.1;
+}
+
+#ray {
+
+	width: 100%;
+    height: 100%;
+
+
+    display: block;
+	overflow:hidden;
+	
+
+
+	position:absolute; top:0px; left:0px;
+	opacity: 0.75;
+}
+
+#tv_bg
+{	
+	width:100%; height:100%;
+	opacity:.2; 
+	position:absolute; top:0px; left:0px; 
+    background-size: 100%;
+	  
+}
+
+
+#bg_canvas {
+		width: 100%;
+  
+height:100%; 
+     display: block;
+	overflow:hidden;
+	
+    background-color: #000;
+position:absolute; top:0px; left:0px;
+
+}
+
+#blur_canvas {
+	width: 100%;
+  
+height:100%; 
+     display: block;
+	overflow:hidden;
+	
+    background-color: #000;
+position:absolute; top:0px; left:0px;
+opacity: 0.5;
+}
+
+#fader {
+    position: absolute;
+
+    margin: 0 auto;
+
+    display:block;
+      overflow:hidden;
+
+
+
+    background-color: #000;
+      opacity: 1;
+}
+
+img, video
+{
+	padding:0; margin:0;
+	
+}
+
+.head
+{  
+margin:0;
+	padding:0;
+	background-color:#444;
+/*	background-image:url('../img/win_bg.jpg');*/
+
+	width:100%; height:40px;
+}
+
+
+.win
+{   margin:0;
+	padding:0;
+	background-color:#666;
+	/*background-image:url('../img/win_bg.jpg');
+	background-repeat:repeat-x;
+	background-position:top right;*/
+
+	width:300px; height:0px;
+
+	position:absolute;; top:120px; left:620px;
+	text-align:left;
+    font-family:arial, helvetica;
+    font-size:14px;
+    overflow:hidden;
+
+    display:none;
+	color:#222;
+}
+
+.win2
+{   padding:0;
+	margin:0;
+	background-color:#666;
+	/*background-image:url('../img/win_bg.jpg');
+	background-repeat:repeat-x;
+	background-position:top right;*/
+
+	width:100%;
+
+	text-align:left;
+     font-family:arial, helvetica;
+     font-size:14px;
+     overflow:hidden;
+	 	color:#222;
+
+
+}
+
+.wintxt
+{    color:#222;
+     font-size:11px;
+     max-height: 300px;
+     overflow:hidden;
+     padding:0;
+     margin:0;
+	 position:relative;
+
+}
+
+
+#fullscreen_butt
+{
+
+    margin: 0 auto;
+ position:relative;
+ top:-50px;
+ left:480px;
+ background-color: #aaa;
+ width:20px;
+ height:20px;
+ padding:16px;
+ color:#fff;
+ border-radius: 4px;
+ opacity: 0.8;
+}
+
+:-moz-full-screen#screen {
+    margin: 0;
+}
+
+/* For some odd reason combining the following 2 rules doesn't work */
+:-moz-full-screen canvas {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0; right: 0; bottom: 0;
+    box-shadow: 0px 0px 4px white;
+    background-color: white;
+}
+
+:-webkit-full-screen canvas {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0; right: 0; bottom: 0;
+    box-shadow: 0px 0px 4px white;
+    background-color: white;
+}
+
+
+:-moz-full-screen button {
+   display: none;
+}
+
+
+
+
+
+
+h1
+{
+       margin-left:8px;
+     margin-top:0px;
+	 padding-top:14px;
+            margin-bottom:20px;
+
+     font-family:arial, helvetica;
+     font-size:12px;
+     color:#fff;
+
+}
+
+
+h2
+{
+      margin-left:8px;
+      margin-top:8px;
+            margin-bottom:0;
+     font-family:arial, helvetica;
+     font-size:11px;
+     color:#ccc;
+
+}
+
+p
+{       margin-bottom:4px;
+      margin-left:8px;
+      margin-right:8px;
+
+     font-family:arial, helvetica;
+     font-size:10px;
+     color:#222;
+
+}
+
+#password
+{
+     margin-left:8px;
+      margin-top:10px;
+            margin-bottom:10px;
+     font-family:arial, helvetica;
+     font-size:12px;
+     color:#999;
+     background-color:#222;
+     border: 1px dotted #888;
+     width:170px;
+}
+
+#submit
+{
+     margin-left:8px;
+      margin-top:10px;
+            margin-bottom:10px;
+     font-family:arial, helvetica;
+     font-size:12px;
+     color:#999;
+     background-color:#222;
+     border: 1px solid #888;
+}
+
+.invis
+{
+	height:0px;
+	overflow:hidden;
+}
+
+
