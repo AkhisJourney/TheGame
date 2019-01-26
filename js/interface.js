@@ -21,7 +21,7 @@ var logo_scale_Y=1;
 
 var brickquality =1;
 
-var global_scale,sqrt_global_scale,sqrt_sqrt_global_scale,s_x,s_y,w,h,ray,ray_img,ray_ctx;
+var global_scale,sqrt_global_scale,sqrt_sqrt_global_scale,s_x,s_y,w,h;
 
 var spot_x=0; 
 var spot_y=0; 
@@ -104,18 +104,7 @@ function init()
 	bg_data = bg_ctx.getImageData(0, 0, 256, 256);
 	
 	//for (var j=0; j<7; j++) 
- 	
- ray_img=document.getElementById('ray_img_150');
- ray_imgs.push(ray_img);
  
-	for (var i=1; i<50; i++) 
-	{
- var img = new Image();		
- img.src = 'img/flash/flash4_000'+(i<10?'0':'')+i+'.jpg';
-// alert("img/flash/flash4_000"+(i<10?'0':'')+i+".jpg'");
- ray_imgs.push(img);
-		//ray_imgs.push('aaa');
-	}
 	
 	
 // logo_img.src = 'img/logo.gif';
@@ -130,8 +119,7 @@ logo = document.getElementById('logo');
 	logo_ctx = logo.getContext('2d');
 	
 //ray_img = document.getElementById('ray_img');	
-ray = document.getElementById('ray');
-ray_ctx = ray.getContext('2d');
+
 
 
 c = document.getElementById('canvas');
@@ -142,24 +130,9 @@ c = document.getElementById('canvas');
 	bg_canv = document.getElementById('bg_canvas');
 	   bg_canv_ctx = bg_canv.getContext('2d');
 	   
-	   
-	  // blur_canv = document.getElementById('blur_canvas');
-	 //  blur_canv_ctx = blur_canv.getContext('2d');
-	   	
-	   
-    	//win =  document.getElementById('win');
-	//		background = document.getElementById('background');
-			
-			
-		
-			
-			          //events
-					  
-
+	
 					  
     resize();
-/*	particlecount=Math.max(scr_width,scr.height)*3
-	init_particles();   */
 
 
 
@@ -174,22 +147,6 @@ fadeto=0.5;
 
 	
 
-	//	fader = document.getElementById('fader');
-//			stream1 = document.getElementById('stream1');
-//				e = document.getElementById('screen');
-//	stream2 = document.getElementById('stream2');
-
-//	bg = document.getElementById('canvasbg');
-//		btx = bg.getContext('2d');
-
-
-	
-		
-                     //ctx.beginPath();
-
-
-	
-
 			
 
 
@@ -200,10 +157,6 @@ fadeto=0.5;
     disableSelection(c);
 
 
-    
-
-				//txtx.closePath();
-            	          //txtx.stroke();*/
 
 for (var R=0; R<16; R++)
 	for (var G=0; G<16; G++)
@@ -432,22 +385,6 @@ blurbuffer.width=blurbuffer.width;
 function update()   // Main cycle Resident funct
 {
 	
-if (!android3)
-{
-	//if (blurOn)  blur ();
-
-
-	spot_x-=(spot_x-target_spot_x)*fadespeed;
-
-var number=((spot_x/scr_multiplier)>>1);
-
-if (ray_imgs[number].complete) ray_img=ray_imgs[number];
-
-
-showspot();
-
-}
-    
 //fps meter
 // adaprive degradation;
 
@@ -491,27 +428,12 @@ showbullets(); //draw bullets
 
 function showspot()
 {
-//	ray_ctx.fillStyle = "rgba(0, 0, 0,0.01)";
 
-//	ray_ctx.fillRect (0, 0,  scr_width, scr_height); //clear canvas
-	
-//	var scale_X=w/900;
-//	var scale_Y=h/506;
 		
 	var cropstart_X=0;
 		var cropstart_Y=0;
 			var cropend_X=900;
 				var cropend_Y=506;
-	
-//	if (x<0) {cropstart_X=-x/scale_X; x=0}
-//		if (y<0) {cropstart_Y=-y/scale_Y; y=0}
-		
-//	if (x+h>scr_width>>1) {cropstart_X=-x/scale_X; w=}
-
-//		alert ('imhere!');
-	
-	ray_ctx.drawImage(ray_img,cropstart_X,cropstart_Y,cropend_X,cropend_Y, s_x,s_y,w,h);
-	
 	
 	
 	
@@ -528,27 +450,7 @@ function resize() {
   	  scr_width = rect.width*ss_factor;
 	  	  scr_height = rect.height*ss_factor;
 		  
-		// if (android3){ scr_width=scr_width>>1;
-		 //		 		scr_height=scr_height>>1;}
-//		scr.height=scr_height;
-		  
-/*var elem = c;  //fullscr
-    if (elem.requestFullScreen) {  
-      elem.requestFullScreen();  
-    } else if (elem.mozRequestFullScreen) {  
-      elem.mozRequestFullScreen();  
-    } else if (elem.webkitRequestFullScreen) {  
-      elem.webkitRequestFullScreen();  
-    }  		  */
-		  
-//document.getElement= scr_width+'px'
-//document.getElementById('clear').style.top = scr_height+100+'px';
-		
-//document.body.offsetHeight=scr_height+'px';
 
-//  document.getElementByTagName('body')[0].style.height=scr_height+'px';
-
-//frame.style.height = scr_height + "px";
 		
 		
 			bg_canv.width=scr_width>>3;
@@ -559,8 +461,7 @@ function resize() {
 			c.width = scr_width;
 		    c.height = scr_height;
 			
-			ray.width = 900;
-		    ray.height = 506;
+
 			
 			
 			logo.width = scr_width;
