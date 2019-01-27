@@ -26,18 +26,44 @@
     <script  language="javascript">
     var colorIncrement = 32;
 	var colorsCount = 256/colorIncrement;
+	var gameOverFlag = false;
+	var root;
+	
+	var targetColorR;
+	var targetColorG;
+	var targetColorB;
+
 
     var bullet = new Array(	new Bullet('root',0,'root', false));
     var link = new Array(new Link(bullet[0],bullet[0]));
-    var wind= new Array();
 
-    var bullet_cz = new Array();
-    var link_cz = new Array();
-    var wind_cz= new Array();
+	function start()
+	{
+		
+		gameOverFlag = false;
 
-    var bullet_en = new Array();
-    var link_en = new Array();
-    var wind_en= new Array();
+		bullet = new Array(	new Bullet('root',0,'root', false));
+		link = new Array(new Link(bullet[0],bullet[0]));
+		
+		 bullet=null;
+		link=null;
+
+		bullet = new Array(new Bullet('root',0,'root', false));
+		link = new Array(new Link(bullet[0],bullet[0]));
+
+		root = new Bullet('RootCost', '.', 5 , '.', true, true)
+		targetColorR = root.colorR;
+		targetColorG = root.colorG;
+		targetColorB = root.colorB;
+
+		bullet.push(root);
+		
+		bullets=bullet.length;
+		
+		links=link.length;
+	}
+	
+	
 
     function init_bullets()
     {
@@ -108,22 +134,7 @@
       }
     }
 
-    bullet=null;
-    link=null;
-
-    bullet = new Array(new Bullet('root',0,'root', false));
-    link = new Array(new Link(bullet[0],bullet[0]));
-
-    var root = new Bullet('RootCost', '.', 5 , '.', true, true)
-    var targetColorR = root.colorR;
-    var targetColorG = root.colorG;
-    var targetColorB = root.colorB;
-
-    bullet.push(root);
-    
-    bullets=bullet.length;
-    
-    links=link.length;
+   start();
                     
                     
     function stop_scroll(evt) {
@@ -143,10 +154,10 @@
 <body  onLoad='init();' onresize="resize()"> <!--onscroll="stop_scroll(event)"-->
 
     <div class='screen' ><canvas id='bg_canvas'></canvas></div> 
-    <div id='tv_bg'></div> 
+   
     <div class='screen'><canvas id='ray'></canvas></div>
-    <div class='screen'><canvas id='logo'></canvas> </div>
     <div class='screen'><canvas id='blur_canvas'></canvas> </div>
+	 <div id='tv_bg'><img id= 'logo' src="img/logo.svg"></div> 
     <div id='screen' class='screen' onMouseOver='fadeto=.5' onMouseOut='fadeto=0'><canvas id='canvas'></canvas></div>
 
 

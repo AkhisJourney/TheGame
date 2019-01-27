@@ -337,6 +337,7 @@
 				{//Die
 					cell.colorR = 2; cell.colorG = 2;  cell.colorB = 2;
 					cell.isDead = true;
+					checkForLoose();
 				}
 			}
 			}
@@ -501,12 +502,44 @@
 
 	function checkForWin (father)
 	{
-		if (targetColorR == father.colorR && targetColorG == father.colorG && targetColorB == father.colorB)
-			alert ('You Got he Mach!');
+		if (!gameOverFlag && targetColorR == father.colorR && targetColorG == father.colorG && targetColorB == father.colorB)
+		{
+			alert ('You Got the Mach!');
 
-
+			gameOver();
+		}
+	}
+	
+	function checkForAliveKids()
+	{
+		
+		for (var i = 0; i<bullets ; i++)
+			if (!bullet[i].hasKids&&bullet[i].percentage>0) return 1;
+		return 0;	
 	}
 
+	function checkForLoose()
+	{
+		if (!gameOverFlag && checkForAliveKids() == 0)
+		{
+			alert ('You Are Lost :(');
+
+		gameOver();
+		}
+	}
+				
+	function gameOver()
+	{
+		gameOverFlag = true;
+		for (var i = 0; i < bullets; i++)
+		{
+			bullet[i].opened = false;
+            bullet[i].active = false;
+            bullet[i].toclose = true;
+		}
+			
+	}	
+	
 	function handleSounds()
 	{
 		
@@ -527,7 +560,11 @@
 
         //closeall();
 
-		if (father!=root) checkForWin (father);
+		if (father != root)
+			checkForWin (father);
+		else 
+			if(gameOverFlag) start();
+				
         if (!father.opened) {
 			
 			
