@@ -504,7 +504,7 @@
 	{
 		if (!gameOverFlag && targetColorR == father.colorR && targetColorG == father.colorG && targetColorB == father.colorB)
 		{
-			alerto ('You Got the Mach!');
+			alerto ('You’ve Got Matches!');
 
 			gameOver();
 		}
