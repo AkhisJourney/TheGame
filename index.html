@@ -24,9 +24,8 @@
 
            
     <script  language="javascript">
-    var winWidth=300; // in percent
-    var winMaxHeight=424; // in percent
-    var language='cz';
+    var colorIncrement = 32;
+	var colorsCount = 256/colorIncrement;
 
     var bullet = new Array(	new Bullet('root',0,'root', false));
     var link = new Array(new Link(bullet[0],bullet[0]));
@@ -48,24 +47,65 @@
             
     function makeKids(father)
     {
-        var howMany = 7*Math.random()+1;
+        var howMany = 6;
         for (var i = 0 ; i< howMany; i++)
         {
 			var name = father.name+'@'+i
-            var kidBullet = new Bullet(name, name, 2 + Math.random()*2 , name, true, true);
-            bullet.push(kidBullet);     
+            var kidBullet
+			  if (father.name=='RootCost')
+			  {
+				kidBullet = new Bullet(name, name, 2 + Math.random()*2 , name, true, true) // random
+			  }	
+			  else
+			  {
+			      var colorIncrement = 1;
+				  var newColorR = father.colorR;
+				  var newColorG = father.colorG;
+				  var newColorB = father.colorB;
+				  
+				  switch (i)
+				  {
+				  case 0: 
+					  newColorR += colorIncrement;
+					  break;
+				  case 1: 
+					  newColorG += colorIncrement;
+					  break;
+				  case 2: 
+					  newColorB += colorIncrement;
+					  break;
+				  case 3: 
+					  newColorR -= colorIncrement;
+					  break;
+				  case 4: 
+					  newColorG -= colorIncrement;
+					  break;
+				  case 5: 
+					  newColorB -= colorIncrement;
+					  break;
+				  }
+				  
+					if ( newColorR >= 0 && newColorR < colorsCount && newColorG >= 0 && newColorG < colorsCount && newColorB >= 0 && newColorB < colorsCount ) // if the new color in the range
+					  kidBullet = new Bullet(name, name, 2 + Math.random()*2 , name, true, true, newColorR,newColorG, newColorB );
+					else kidBullet = false;
+			  }
+		  
+		  if (kidBullet)
+		  {
+				bullet.push(kidBullet);     
 
-            bullets=bullet.length;
+				bullets=bullet.length;
 
-            link.push(new Link(father,kidBullet)); 
+				link.push(new Link(father,kidBullet)); 
 
-            kidBullet.father=father;
-            kidBullet.z=father.z_lvl;
-            kidBullet.z_lvl=father.z_lvl+80;
+				kidBullet.father=father;
+				kidBullet.z=father.z_lvl;
+				kidBullet.z_lvl=father.z_lvl+80;
 
-	
-            links=link.length;
-        }
+		
+				links=link.length;
+			}
+      }
     }
 
     bullet=null;

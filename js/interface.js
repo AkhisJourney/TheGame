@@ -165,9 +165,9 @@ fadeto=0.5;
 
 
 
-for (var R=0; R<16; R++)
-	for (var G=0; G<16; G++)
-		for (var B=0; B<16; B++)
+for (var R=0; R<256/colorIncrement; R ++ )
+	for (var G=0; G<256/colorIncrement; G++ )
+		for (var B=0; B<256/colorIncrement; B++  )
   			drawSprites(R,G,B);
 
 	set_events();
@@ -404,11 +404,6 @@ longFPS=realround((longFPS*7+FPS)/8);
 
 
 //thermostat 
-if (longFPS>20) blurOn=true;
-	if ((longFPS<10)&&(blurOn)){blur_canv.width=blur_canv.width; blurOn=false;}
-	
-	if (longFPS>15) brickquality=2;	
-		if (longFPS<8) brickquality=1;	
 
 
 

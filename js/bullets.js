@@ -90,7 +90,7 @@
 
     function getColorRGBA(R,G,B,A)
     {
-    	return 'rgba(' + (R<<4) + ',' + (G<<4) + ','+ (B<<4) + ',' + A +')';
+    	return 'rgba(' + (R*colorIncrement) + ',' + (G*colorIncrement) + ','+ (B*colorIncrement) + ',' + A +')';
     }
 
     function getColorRGBA256(R,G,B,A)
@@ -99,16 +99,16 @@
     	return 'rgba(' + (R) + ',' + (G) + ','+ (B) + ',' + A +')';
     }
 
-        function getColorRGB(R,G,B)
+     function getColorRGB(R,G,B)
     {
-    	return 'rgb(' + (R<<4) + ',' + (G<<4) + ','+ (B<<4) + ')';
+    	return 'rgb(' + (R*colorIncrement) + ',' + (G*colorIncrement) + ','+ (B*colorIncrement) + ')';
     }
 
     function random_rgb() {
         var o = Math.round,
             r = Math.random,
-            s = 7;
-        return o(r() * s+1)*2-1;
+            s = colorsCount-1;
+        return o(r() * s);
     }
 
     function Bullet(name, order, mass, src, visible, isFolder, colorR, colorG, colorB) {
@@ -169,7 +169,7 @@
 
     function drawSprites(R,G,B) {
 
-    	var index = R*15*15+G*15+B;
+    	var index = R*colorsCount*colorsCount+G*colorsCount+B;
         var spriteradius = Math.round(Math.max(scr_height, scr_width) / 16);
 
 
@@ -335,7 +335,7 @@
 					cell.percentage -= dieSpd;
 				else
 				{//Die
-					cell.colorR = 5; cell.colorG = 5;  cell.colorB = 5;
+					cell.colorR = 2; cell.colorG = 2;  cell.colorB = 2;
 					cell.isDead = true;
 				}
 			}
@@ -782,7 +782,7 @@
     function drawBullet(bullet)
     {
 
-    	    	var index = bullet.colorR*15*15+bullet.colorG*15+bullet.colorG;
+    	    	var index = bullet.colorR*colorsCount*colorsCount+bullet.colorG*colorsCount+bullet.colorB;
     	   mass = conv(bullet.mass_transl);
                 var x = bullet.x_transl - mass;
                 var y = bullet.y_transl - mass;
