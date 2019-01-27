@@ -38,7 +38,7 @@ function mouse_events() {
             fadeto=0;
             grabbed=-1;
         }
-        winGrabbed=-1; winScrolled=-1; //WINDOW
+//winGrabbed=-1; winScrolled=-1; //WINDOW
 
     }, false);
 
@@ -144,6 +144,7 @@ function mousepressedOnce(){
           }
 
      if (!flag&&doubleclick()) flashall();
+	 // grabbed=-1;
 }
 
 function mouseMoved(){

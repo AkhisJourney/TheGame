@@ -52,7 +52,7 @@
         for (var i = 0 ; i< howMany; i++)
         {
 			var name = father.name+'@'+i
-            var kidBullet = new Bullet(name, name, 3 , name, true, true);
+            var kidBullet = new Bullet(name, name, 2 + Math.random()*2 , name, true, true);
             bullet.push(kidBullet);     
 
             bullets=bullet.length;

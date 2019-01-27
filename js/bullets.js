@@ -107,8 +107,8 @@
     function random_rgb() {
         var o = Math.round,
             r = Math.random,
-            s = 15;
-        return o(r() * s);
+            s = 7;
+        return o(r() * s+1)*2-1;
     }
 
     function Bullet(name, order, mass, src, visible, isFolder, colorR, colorG, colorB) {
@@ -481,7 +481,7 @@
 
 
 
-                bullet[i].mass_transl = transl_r((1 + bullet[i].fade * rost) * bullet[i].mass, z) * bulletMult;
+                bullet[i].mass_transl = (i==1)? bullet[i].mass:transl_r((1 + bullet[i].fade * rost) * bullet[i].mass, z) * bulletMult;// root size is const
                 bullet[i].x_transl = conv(transl_x(bullet[i].x, z));
                 bullet[i].y_transl = conv(transl_y(bullet[i].y, z));
 
@@ -757,10 +757,10 @@
 			     ctx.beginPath(); // if disabled- is very interesting
 
                 // animate circles;
-				     var mass = bullet.mass_transl;
+				     var mass = (conv(bullet.mass_transl));
                 var r = bullet.percentage/90*pi2;
                
-			   ctx.arc(bullet.x_transl, bullet.y_transl, mass*32, r, 0, true);
+			   ctx.arc(bullet.x_transl, bullet.y_transl, mass, r, 0, true);
 
 
                 //ctx.arc(bullet.x_transl, bullet.y_transl, r2, fade, pi2 * fade, true);
