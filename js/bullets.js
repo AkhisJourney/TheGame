@@ -504,7 +504,7 @@
 	{
 		if (!gameOverFlag && targetColorR == father.colorR && targetColorG == father.colorG && targetColorB == father.colorB)
 		{
-			alerto ('You’ve Got Matches!');
+			alerto ('Journey Ended!');
 
 			gameOver();
 		}
