@@ -2,13 +2,11 @@ function mouse_events() {
 	// Mouse events
     c.addEventListener('mouseenter', function(evt)
  	{
-//		alert ('mousemoved');              
     }, false);
 
     
     c.addEventListener('mousemove', function(evt)
  	{
-		//alert ('mousemoved');
         mousePos = getMousePos(c, evt);
         target_spot_x=mousePos.x; target_spot_y=mousePos.y;
 		interactive();
@@ -40,7 +38,6 @@ function mouse_events() {
             fadeto=0;
             grabbed=-1;
         }
-        //alert ('up!');
         winGrabbed=-1; winScrolled=-1; //WINDOW
 
     }, false);
@@ -62,8 +59,7 @@ function mouse_events() {
             fadeto=0;
             grabbed=-1;
         }
-        //winScrolled=-1;                                
-        //winGrabbed=-1; //WINDOW
+
     }, false);
 
 }
@@ -161,7 +157,7 @@ function mouseMoved(){
           {
           //	if (doubleclick()) if (bullet[i].isFolder) openfolder(bullet[i]); else openwindow(bullet[i]);
 
-			         	bullet[i].fadeto=1;bullet[i].tictac=1000/fps; bullet[i].active=true;
+			//         	bullet[i].fadeto=1;bullet[i].tictac=1000/fps; bullet[i].active=true;
 
           } else if (!bullet[i].opened) bullet[i].active=false;
 

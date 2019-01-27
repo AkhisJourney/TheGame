@@ -18,6 +18,9 @@
 
     var bulletcolor = '#eee';
     var bulletstroke = 'rgba(255,255,255,.2)';
+	var percentageStroke = 'rgba(255,255,255,1)';
+		var percentageStroke1 = 'rgba(0,0,0,1)';
+			var percentageStroke2 = 'rgba(255,255,255,1)';
 
     var lastopenedfolder = -1;
 
@@ -31,6 +34,8 @@
     var rost = 0.5;
     var tick = 0;
     var tick2 = 0;
+	var bornSpd = 10;
+	var dieSpd = .5;
     var index = 0;
 
 
@@ -133,6 +138,8 @@
         this.fade = 0;
         this.fadeto = 0;
         this.tictac = 0;
+		this.percentage = 0;
+		this.isAdult = false;
 
         this.father = false;
 
@@ -150,6 +157,7 @@
         this.colorR = (typeof colorR !== "undefined") ? colorR : random_rgb();
         this.colorG = (typeof colorG !== "undefined") ? colorG : random_rgb();
         this.colorB = (typeof colorB !== "undefined") ? colorB : random_rgb();
+		this.isDead = false;
     }
 
     function Link(start, end) {
@@ -307,19 +315,52 @@
     }
 
 
+    function lifeCycle(cell)
+	{
+		if(!cell.hasKids)
+		{
+		if(!cell.isAdult)
 
+			{
+							if (cell.percentage<100)
+				{
+					cell.percentage += bornSpd;
+					if (cell.percentage==100 ) 
+						cell.isAdult=true;
+				}
+			}
+			else
+			{
+				if (cell.percentage>=0)
+					cell.percentage -= dieSpd;
+				else
+				{//Die
+					cell.colorR = 5; cell.colorG = 5;  cell.colorB = 5;
+					cell.isDead = true;
+				}
+			}
+			}
+	}
+	
     function phyzycs() {
 
         var i, j;
 
         camera_z -= (camera_z - camera_z_to) * fadespeed;
-
         for (i = 0; i < bullets; i++)
             if (bullet[i].visible) {
+				
+					// timer
 
-                //3d		   
+		
+                //3d	
+				if (i>1)
+					lifeCycle(bullet[i]);
+				
+				
+				if (bullet[i].active)	   
 
-                bullet[i].z -= (bullet[i].z - bullet[i].z_to) * fadespeed;
+                  bullet[i].z -= (bullet[i].z - bullet[i].z_to) * fadespeed;
 
 
                 //border mass
@@ -466,6 +507,22 @@
 
 	}
 
+	function handleSounds()
+	{
+		
+			//if (clicked) soundOnclick.stop();
+			
+			soundOnclick.play();
+
+				if (!clicked) // First click- lets's replace the sound.
+				{
+					soundOnclick = soundBorn;
+					clicked=true;
+					
+				}
+				soundOnclick.currentTime = 0;
+	}
+	
     function openfolder(father) {
 
         //closeall();
@@ -473,10 +530,14 @@
 		if (father!=root) checkForWin (father);
         if (!father.opened) {
 			
-			if (!father.hasKids)
-			{
+			
+
+				
+			if (!father.hasKids&&!father.isDead)
+			{			
 				makeKids(father);
 				father.hasKids = true;
+				handleSounds();
         	}
 
             father.fadeto = 1;
@@ -515,6 +576,8 @@
         } else
 
         {
+							handleSounds();
+
             father.opened = false;
             father.active = false;
             father.toclose = true;
@@ -595,7 +658,7 @@
 
                 //	             mass=(1+fade*rost)*bullet[i].mass;
                 mass = (1 + fade * rost) * bullet[i].mass_transl;
-                var text = bullet[i].name;
+               // var text = bullet[i].name;
 
                 r2 = conv((mass + .5 + fade) * sin45);
 
@@ -605,12 +668,12 @@
 
 
 
-                text_x = bullet[i].x_transl + r2;
+              //  text_x = bullet[i].x_transl + r2;
 
 
 
-                text_y = bullet[i].y_transl - (r2 >> 1);
-
+          //      text_y = bullet[i].y_transl - (r2 >> 1);
+//
                 //   if ( (text_x+text.length*charwidth>0)&&(text_y+fontsize+3>0)&&(text_x<scr_width)&&(text_y<scr_height))
 
               
@@ -621,8 +684,8 @@
 
 
                 //if ((fade>0)&&(bullet[i].x_transl>0)&&(bullet[i].y_transl>0)&&(bullet[i].x_transl<scr_width)&&(bullet[i].y_transl<scr_height))                                                     // IF VISIBLE ThEN TEXT
-if (fade>0)
-{
+			if (fade>0)
+			{
                 ctx.beginPath(); // if disabled- is very interesting
 
                 // animate circles;
@@ -648,7 +711,7 @@ if (fade>0)
                                     if (fade>.2)
                                      {         tempfade2=Math.min((fade-.2)*5,1);
                                             ctx.moveTo(conv(startx+tempfade),conv(starty-tempfade));
-                				    		    ctx.lineTo(conv(startx+tempfade)+round(charwidth*text.length*(tempfade2)),conv(starty-tempfade)); // ( / )
+                				    		    ctx.lineTo(conv(startx+tempfade)+round(charwidth*(tempfade2)),conv(starty-tempfade)); // ( / )
 
 
                                      }
@@ -657,18 +720,64 @@ if (fade>0)
 
                                   
                 ctx.stroke();
+				
+				
 
-}
+			}
 
              
                 //   if ( (x+mass>0)&&(y+mass>0)&&(x<scr_width)&&(y<scr_height))///main function to draw
                drawBullet (bullet[i]);
-
+			
 
                 if ((bullet[i].tictac > 0) && (bullet[i].fade > .9) && (i != grabbed) && (!bullet[i].opened)) bullet[i].fadeto = 0;
+				
+				if (i>1 && !bullet[i].hasKids)
+					drawPercentage (bullet[i]);
+		
+
 
             }
+			swapPercentageColor();
+
     }
+	
+		function	swapPercentageColor()
+		{
+				percentageStroke2 = percentageStroke;
+				percentageStroke = percentageStroke1;
+				percentageStroke1 = percentageStroke2;
+		}
+	
+		function drawPercentage (bullet)
+		{
+			if (bullet.percentage>0)
+			{
+			        ctx.strokeStyle = percentageStroke;
+			     ctx.beginPath(); // if disabled- is very interesting
+
+                // animate circles;
+				     var mass = bullet.mass_transl;
+                var r = bullet.percentage/90*pi2;
+               
+			   ctx.arc(bullet.x_transl, bullet.y_transl, mass*32, r, 0, true);
+
+
+                //ctx.arc(bullet.x_transl, bullet.y_transl, r2, fade, pi2 * fade, true);
+
+                // animate lines
+               
+
+
+                                 
+
+
+
+                                  
+                ctx.stroke();
+				  ctx.strokeStyle = bulletstroke;
+				}
+		}
 
     function drawBullet(bullet)
     {

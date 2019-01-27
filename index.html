@@ -51,7 +51,8 @@
         var howMany = 7*Math.random()+1;
         for (var i = 0 ; i< howMany; i++)
         {
-            var kidBullet = new Bullet(father.name+'@i', father.name+'@i', 1.5 , father.name+'@i', true, true);
+			var name = father.name+'@'+i
+            var kidBullet = new Bullet(name, name, 3 , name, true, true);
             bullet.push(kidBullet);     
 
             bullets=bullet.length;
@@ -62,10 +63,8 @@
             kidBullet.z=father.z_lvl;
             kidBullet.z_lvl=father.z_lvl+80;
 
-            //getOrder('structure.en/3_SERVICES.1').z_lvl=getOrder('structure.en.3').z_lvl+80;
-            //init_bullets();	
+	
             links=link.length;
-        //	debugger;
         }
     }
 
@@ -75,7 +74,7 @@
     bullet = new Array(new Bullet('root',0,'root', false));
     link = new Array(new Link(bullet[0],bullet[0]));
 
-    var root = new Bullet('RootCost', '.', 3 , '.', true, true)
+    var root = new Bullet('RootCost', '.', 5 , '.', true, true)
     var targetColorR = root.colorR;
     var targetColorG = root.colorG;
     var targetColorB = root.colorB;
@@ -110,7 +109,6 @@
     <div class='screen'><canvas id='blur_canvas'></canvas> </div>
     <div id='screen' class='screen' onMouseOver='fadeto=.5' onMouseOut='fadeto=0'><canvas id='canvas'></canvas></div>
 
-    <img id='ray_img_150'  src='img/flash/flash4_00000.jpg'> //spot image first frame;
 
 </body>
 

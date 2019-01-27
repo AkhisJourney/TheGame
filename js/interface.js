@@ -55,7 +55,11 @@ var bg_fade=.1;
 
 // var logo_img = new Image();	
 
-
+var soundBgm = new Audio('mp3/bgm.mp3');
+soundBgm.loop = true;
+var soundBorn = new Audio('mp3/expention.mp3');
+var soundOnclick = soundBgm;
+var clicked = false;
 
    // Mouse controllers
 function set_events(){
@@ -96,12 +100,15 @@ function init()
 { 
   //  blurbuffer = document.createElement('canvas'); //prepare for blur
  //   blur_ctx = blurbuffer.getContext('2d');
+ 
+	soundOnclick.play();
 	
     bg = document.createElement('canvas');  //prepare for animate_bg
 	bg.width=256;
 	bg.height=256;	 
     bg_ctx = bg.getContext('2d');
 	bg_data = bg_ctx.getImageData(0, 0, 256, 256);
+	
 	
 	//for (var j=0; j<7; j++) 
  
