@@ -504,7 +504,7 @@
 	{
 		if (!gameOverFlag && targetColorR == father.colorR && targetColorG == father.colorG && targetColorB == father.colorB)
 		{
-			alert ('You Got the Mach!');
+			alerto ('You Got the Mach!');
 
 			gameOver();
 		}
@@ -522,7 +522,7 @@
 	{
 		if (!gameOverFlag && checkForAliveKids() == 0)
 		{
-			alert ('You Are Lost :(');
+			alerto ('You Are Lost :(');
 
 		gameOver();
 		}

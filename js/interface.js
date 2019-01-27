@@ -103,7 +103,7 @@ function init()
     bg_ctx = bg.getContext('2d');
 	bg_data = bg_ctx.getImageData(0, 0, 256, 256);
 	
-	
+	 start();
 	//for (var j=0; j<7; j++) 
  
 	
@@ -122,10 +122,12 @@ Array.prototype.forEach.call(document.getElementsByTagName('body'), function(el)
 
 c = document.getElementById('canvas');
 	ctx = c.getContext('2d');
-	scr =   document.getElementById('screen');
+
 	
 	
 	bg_canv = document.getElementById('bg_canvas');
+		
+
 	   bg_canv_ctx = bg_canv.getContext('2d');
 	   
 	
@@ -498,8 +500,8 @@ function resize() {
 					    bulletMult=(1024/scr_width);
 			
 			
-//	blur_canv.width=scr_width>>1;
-//	blur_canv.height=scr_height>>1;				
+	blur_canvas.width=scr_width>>1;
+	blur_canvas.height=scr_height>>1;				
 //
 	//blurbuffer.width=scr_width>>1;
 	//blurbuffer.height=scr_height>>1;	
