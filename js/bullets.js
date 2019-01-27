@@ -505,7 +505,8 @@
 		if (!gameOverFlag && targetColorR == father.colorR && targetColorG == father.colorG && targetColorB == father.colorB)
 		{
 			alerto ('Journey Ended!');
-
+			father.percentage = 0;
+			father.isDead = false;
 			gameOver();
 		}
 	}
@@ -514,7 +515,7 @@
 	{
 		
 		for (var i = 0; i<bullets ; i++)
-			if (!bullet[i].hasKids&&bullet[i].percentage>0) return 1;
+			if (!bullet[i].hasKids&&bullet[i].percentage>0 && bullet[i].visible) return 1;
 		return 0;	
 	}
 
@@ -558,93 +559,96 @@
 	
     function openfolder(father) {
 
+		if(gameOverFlag) start();
         //closeall();
+		else{
 
-		if (father != root)
-			checkForWin (father);
-		else 
-			if(gameOverFlag) start();
+			if (father != root)
+				checkForWin (father);
 				
-        if (!father.opened) {
-			
-			
-
+		
+					
+			if (!father.opened) {
 				
-			if (!father.hasKids&&!father.isDead)
-			{			
-				makeKids(father);
-				father.hasKids = true;
-				handleSounds();
-        	}
+				
 
-            father.fadeto = 1;
-            father.toclose = false;
-            father.opened = true;
-            // closeall_z_minus(bullet[i].z_to);
-            for (var i = 0; i < bullets; i++)
+					
+				if (!father.hasKids&&!father.isDead)
+				{			
+					makeKids(father);
+					father.hasKids = true;
+					handleSounds();
+				}
 
-            {
-                if ((bullet[i].father == father.father) && !bullet[i].opened) bullet[i].active = false;
+				father.fadeto = 1;
+				father.toclose = false;
+				father.opened = true;
+				// closeall_z_minus(bullet[i].z_to);
+				for (var i = 0; i < bullets; i++)
 
-                if (bullet[i].father == father) {
-                    lastopenedfolder = father;
-                    bullet[i].x = father.x + shiftRand() * .1 - .05;
-                    bullet[i].y = father.y + shiftRand() * .1 - .05;
+				{
+					if ((bullet[i].father == father.father) && !bullet[i].opened) bullet[i].active = false;
 
-                    this.speed_x = shiftRand() * 1 - .5;
-                    this.speed_y = shiftRand() * 1 - .5;
+					if (bullet[i].father == father) {
+						lastopenedfolder = father;
+						bullet[i].x = father.x + shiftRand() * .1 - .05;
+						bullet[i].y = father.y + shiftRand() * .1 - .05;
 
-                    bullet[i].visible = true;
+						this.speed_x = shiftRand() * 1 - .5;
+						this.speed_y = shiftRand() * 1 - .5;
 
-
-
-
-                    //3d Z coord moove!!!!
-                    bullet[i].z_to = bullet[i].z_lvl;
-                    camera_z_to = bullet[i].z_lvl;
-
-                    //if (openedwindow!=-1) closeWindow(openedwindow)
-                }
-
-
-
-            }
-
-        } else
-
-        {
-							handleSounds();
-
-            father.opened = false;
-            father.active = false;
-            father.toclose = true;
-            tick2 = 0;
-            lastopenedfolder = -1;
-
-            for (var i = 0; i < bullets; i++)
-
-            {
-                if (bullet[i].father == father)
+						bullet[i].visible = true;
 
 
 
 
-                    //3d Z coord moove!!!!
-                    bullet[i].z_to = father.z_lvl;
-                var MaxZ = max_z()
-                if (camera_z_to > MaxZ) camera_z_to = MaxZ;
-                //			camera_z_to=father.z_lvl;
+						//3d Z coord moove!!!!
+						bullet[i].z_to = bullet[i].z_lvl;
+						camera_z_to = bullet[i].z_lvl;
 
-                //if (openedwindow!=-1) closeWindow(openedwindow)
-
+						//if (openedwindow!=-1) closeWindow(openedwindow)
+					}
 
 
 
-            }
+				}
+
+			} else
+
+			{
+								handleSounds();
+
+				father.opened = false;
+				father.active = false;
+				father.toclose = true;
+				tick2 = 0;
+				lastopenedfolder = -1;
+
+				for (var i = 0; i < bullets; i++)
+
+				{
+					if (bullet[i].father == father)
 
 
 
-        };
+
+						//3d Z coord moove!!!!
+						bullet[i].z_to = father.z_lvl;
+					var MaxZ = max_z()
+					if (camera_z_to > MaxZ) camera_z_to = MaxZ;
+					//			camera_z_to=father.z_lvl;
+
+					//if (openedwindow!=-1) closeWindow(openedwindow)
+
+
+
+
+				}
+
+
+
+			}
+		}
     }
 
 

@@ -96,12 +96,12 @@ function mousepressed() {
     //y= mousePos.y;
 
     for (i = 0; i < bullets; i++)
-        if (inbullet(bullet[i])) {
+        if (inbullet(bullet[i])&&!bullet[i].isDead) {
             flag = true;
             if (doubleclick())
                 if (bullet[i].isFolder) openfolder(bullet[i])
             else
-            if (bullet[i].z_to == camera_z_to) openwindow(bullet[i])
+				if (bullet[i].z_to == camera_z_to) openwindow(bullet[i])
             else {
 
                 closeall_z(bullet[i].z_to);
