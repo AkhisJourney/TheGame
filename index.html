@@ -1,29 +1,19 @@
 <!DOCTYPE html>
-
 <html>
-
-
-<head>
-    <meta charset="UTF-8" />
-	
-    <title>Akhi's Jorney</title>
-	<link rel="stylesheet" type="text/css" href='css/style.css' src='css/style;.css' />
-    <meta name="viewport" content="width = device-width, initial-scale = 1 ,maximum-scale = 1, target-densityDpi=device-dpi, user-scalable=no" />
-    <meta name="HandheldFriendly" content="true"/>  
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-     
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"  />   
-    
-    <!-- Detect resolution and ajust styles-->         
-    
-    <script language="javascript" type="text/javascript" src="js/resolution.js"></script>
-
-    <script language="javascript" type="text/javascript" src="js/mouse.js"></script>
-	<script language="javascript" type="text/javascript" src="js/bullets.js"></script>
-
-           
-    <script  language="javascript">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Akhi's Jorney</title>
+		<link rel="stylesheet" type="text/css" href='css/style.css' src='css/style;.css' />
+		<meta name="viewport" content="width = device-width, initial-scale = 1 ,maximum-scale = 1, target-densityDpi=device-dpi, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"  />
+		<!-- Detect resolution and ajust styles-->
+		<script language="javascript" type="text/javascript" src="js/resolution.js"></script>
+		<script language="javascript" type="text/javascript" src="js/mouse.js"></script>
+		<script language="javascript" type="text/javascript" src="js/bullets.js"></script>
+		<script  language="javascript">
     var colorIncrement = 32;
 	var colorsCount = 256/colorIncrement;
 	var gameOverFlag = false;
@@ -32,6 +22,7 @@
 	var targetColorR;
 	var targetColorG;
 	var targetColorB;
+	var rootCostSize = 7;
 
 
     var bullet = new Array(	new Bullet('root',0,'root', false));
@@ -40,6 +31,15 @@
 
 	function start()
 	{
+		var     c = document.getElementById('canvas');
+		var rect = c.getBoundingClientRect();
+
+
+		var scr_width = rect.width * ss_factor;
+		var scr_height = rect.height * ss_factor;
+		if (scr_height> scr_width*1.5)
+		 rootCostSize = 15; //if is portrait- probably mobile- let's increase
+		 
 		blur_canvas = document.getElementById('blur_canvas');
 		gameOverFlag = false;
 
@@ -52,7 +52,7 @@
 		bullet = new Array(new Bullet('root',0,'root', false));
 		link = new Array(new Link(bullet[0],bullet[0]));
 
-		root = new Bullet('RootCost', '.', 7 , '.', true, true)
+		root = new Bullet('RootCost', '.', rootCostSize , '.', true, true)
 		targetColorR = root.colorR;
 		targetColorG = root.colorG;
 		targetColorB = root.colorB;
@@ -156,21 +156,24 @@
         return false;
     } 
 
-    </script>
-    <script language="javascript" type="text/javascript" src="js/interface.js"></script>
-</head>
-
-<body  onLoad='init();' onresize="resize()"> <!--onscroll="stop_scroll(event)"-->
-
-    <div class='screen' ><canvas id='bg_canvas'></canvas></div> 
-   
-    <div class='screen'><canvas id='ray'></canvas></div>
-	 <div id='tv_bg'><img id= 'logo' src="img/logo.svg"></div> 
-	  <div class='screen' id='blur_canvas'></div>
-    <div id='screen' class='screen' onMouseOver='fadeto=.5' onMouseOut='fadeto=0'><canvas id='canvas'></canvas></div>
-
-   
-
-</body>
-
-</html>
+    
+		</script>
+		<script language="javascript" type="text/javascript" src="js/interface.js"></script>
+	</head>
+	<body  onLoad='init();' onresize="resize()">
+		<!--onscroll="stop_scroll(event)"-->
+		<div class='screen' >
+			<canvas id='bg_canvas'></canvas>
+		</div>
+		<div class='screen'>
+			<canvas id='ray'></canvas>
+		</div>
+		<div id='tv_bg'>
+			<img id= 'logo' src="img/logo.svg">
+			</div>
+			<div class='screen' id='blur_canvas'></div>
+			<div id='screen' class='screen' onMouseOver='fadeto=.5' onMouseOut='fadeto=0'>
+				<canvas id='canvas'></canvas>
+			</div>
+		</body>
+	</html>
